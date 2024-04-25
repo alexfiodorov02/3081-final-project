@@ -9,7 +9,7 @@ job_types = ["Software Engineer", "Data Scientist", "Product Manager", "System A
 
 data = []
 
-for _ in range(20):
+for _ in range(200):
     first_name = fake.first_name()
     last_name = fake.last_name()
     email = f"{first_name.lower()}.{last_name.lower()}@example.com"
