@@ -35,7 +35,7 @@ for _ in range(200):
         "fields": {
             "first_name": first_name,
             "last_name": last_name,
-            "phone_number": str(random.randint(100000000, 999999999)),
+            "phone_number": str(random.randint(1000000000, 9999999999)),
             "email": email,
             "company": fake.company()
         }
