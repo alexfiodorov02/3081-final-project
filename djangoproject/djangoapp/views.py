@@ -11,18 +11,21 @@ def customers(request):
     customers = Customer.objects.all()
     return render(request, 'customers.html', {'customers': customers})
 
-def search_customers(request):
+def search(request, model, fields, template_name):
     query = request.GET.get('q')
     if query:
-        results = Customer.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(phone_number__icontains=query) | Q(email__icontains=query) | Q(company__icontains=query))
+        q_objects = Q()
+        for field in fields:
+            q_objects |= Q(**{f'{field}__icontains': query})
+        results = model.objects.filter(q_objects)
     else:
-        results = Customer.objects.all()
-    return render(request, 'customers.html', {'customers': results})
+        results = model.objects.all()
+    return render(request, template_name, {template_name.split('.')[0]: results})
+
+def search_customers(request):
+    fields = ['first_name', 'last_name', 'phone_number', 'email', 'company']
+    return search(request, Customer, fields, 'customers.html')
 
 def search_employees(request):
-    query = request.GET.get('q')
-    if query:
-        results = Employee.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(phone_number__icontains=query) | Q(email__icontains=query) | Q(role__icontains=query))
-    else:
-        results = Employee.objects.all()
-    return render(request, 'employees.html', {'employees': results})
+    fields = ['first_name', 'last_name', 'phone_number', 'email', 'role']
+    return search(request, Employee, fields, 'employees.html')
