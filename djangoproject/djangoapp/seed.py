@@ -10,25 +10,33 @@ job_types = ["Software Engineer", "Data Scientist", "Product Manager", "System A
 data = []
 
 for _ in range(20):
+    first_name = fake.first_name()
+    last_name = fake.last_name()
+    email = f"{first_name.lower()}.{last_name.lower()}@example.com"
+
     employee = {
         "model": "djangoapp.employee",
         "fields": {
-            "first_name": fake.first_name(),
-            "last_name": fake.last_name(),
+            "first_name": first_name,
+            "last_name": last_name,
             "phone_number": str(random.randint(1000000000, 9999999999)),
-            "email": fake.email(),
+            "email": email,
             "role": random.choice(job_types)
         }
     }
     data.append(employee)
 
+    first_name = fake.first_name()
+    last_name = fake.last_name()
+    email = f"{first_name.lower()}.{last_name.lower()}@example.com"
+
     customer = {
         "model": "djangoapp.customer",
         "fields": {
-            "first_name": fake.first_name(),
-            "last_name": fake.last_name(),
+            "first_name": first_name,
+            "last_name": last_name,
             "phone_number": str(random.randint(100000000, 999999999)),
-            "email": fake.email(),
+            "email": email,
             "company": fake.company()
         }
     }
